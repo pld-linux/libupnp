@@ -1,4 +1,5 @@
 Summary:	The Universal Plug and Play (UPnP) SDK for Linux
+Summary(pl):	Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
 Name:		libupnp
 Version:	1.2.1a
 Release:	1
@@ -7,7 +8,6 @@ Group:		Development/Libraries
 Source0:	http://dl.sourceforge.net/upnp/%{name}-%{version}.tar.gz
 # Source0-md5:	e72b3550bf064eedf080f16f09688891
 URL:		http://upnp.sourceforge.net/
-Requires(pre,post):	/sbin/ldconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -16,8 +16,15 @@ API and open source code for building control points, devices, and
 bridges that are compliant with Version 1.0 of the Universal Plug and
 Play Device Architecture Specification.
 
+%description -l pl
+Linuksowy pakiet programistyczny dla urz±dzeñ UPnP (libupnp) dostarcza
+programistom API i kod z otwartymi ¼ród³ami s³u¿±ce do tworzenia
+punktów kontrolnych, urz±dzeñ i mostków kompatybilnych z wersj± 1.0
+specifikacji architektury urz±dzeñ Universal Plug and Play.
+
 %package devel
 Summary:	Header files for libupnp
+Summary(pl):	Pliki nag³ówkowe libupnp
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -25,22 +32,23 @@ Requires:	%{name} = %{version}-%{release}
 This package contains header files for the Linux SDK for UPnP Devices
 (libupnp).
 
+%description devel -l pl
+Ten pakiet zawiera pliki nag³ówkowe dla linuksowego pakietu
+programistycznego do urz±dzeñ UPnP (libupnp).
+
 %prep
 %setup -q
 
 %build
-cd ixml
-%{__make} \
+%{__make} -C ixml \
 	CC="%{__cc}" \
 	%{?!debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DNDEBUG"} \
 	%{?debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DDEBUG"}
-cd ../threadutil
-%{__make} \
+%{__make} -C threadutil \
 	CC="%{__cc}" \
 	%{?!debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DNDEBUG"} \
 	%{?debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DDEBUG"}
-cd ../upnp
-%{__make} \
+%{__make} -C upnp\
 	CC="%{__cc}" \
 	%{?!debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DNDEBUG"} \
 	%{?debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DDEBUG"}
@@ -67,9 +75,8 @@ ln -sf libupnp.so.*.* libupnp.so
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)

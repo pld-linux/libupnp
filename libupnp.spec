@@ -20,7 +20,7 @@ Play Device Architecture Specification.
 Linuksowy pakiet programistyczny dla urz±dzeñ UPnP (libupnp) dostarcza
 programistom API i kod z otwartymi ¼ród³ami s³u¿±ce do tworzenia
 punktów kontrolnych, urz±dzeñ i mostków kompatybilnych z wersj± 1.0
-specifikacji architektury urz±dzeñ Universal Plug and Play.
+specyfikacji architektury urz±dzeñ Universal Plug and Play.
 
 %package devel
 Summary:	Header files for libupnp

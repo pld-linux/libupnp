@@ -42,35 +42,23 @@ programistycznego do urz±dzeñ UPnP (libupnp).
 %build
 %{__make} -C ixml \
 	CC="%{__cc}" \
-	%{?!debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DNDEBUG"} \
+	%{?!debug:DEBUG=0 DEBUG_FLAGS="%{rpmcflags} -DNDEBUG"} \
 	%{?debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DDEBUG"}
 %{__make} -C threadutil \
 	CC="%{__cc}" \
-	%{?!debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DNDEBUG"} \
+	%{?!debug:DEBUG=0 DEBUG_FLAGS="%{rpmcflags} -DNDEBUG"} \
 	%{?debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DDEBUG"}
 %{__make} -C upnp\
 	CC="%{__cc}" \
-	%{?!debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DNDEBUG"} \
+	%{?!debug:DEBUG=0 DEBUG_FLAGS="%{rpmcflags} -DNDEBUG"} \
 	%{?debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DDEBUG"}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_includedir}/upnp
+install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}/upnp}
 
-cd ixml
-%{__make} install \
-	PREFIX=$RPM_BUILD_ROOT
-install -m 644 inc/* $RPM_BUILD_ROOT%{_includedir}/upnp
-cd ../threadutil
-%{__make} install \
-	PREFIX=$RPM_BUILD_ROOT
-install -m 644 inc/* $RPM_BUILD_ROOT%{_includedir}/upnp
-cd ../upnp
-%{__make} install \
-	PREFIX=$RPM_BUILD_ROOT
-
-cd $RPM_BUILD_ROOT%{_libdir}
-ln -sf libupnp.so.*.* libupnp.so
+cp upnp/inc/* $RPM_BUILD_ROOT%{_includedir}/upnp
+cp upnp/bin%{?debug:/debug}/* $RPM_BUILD_ROOT%{_libdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -81,12 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README
-%attr(755,root,root) %{_libdir}/libupnp.so.*.*
+%attr(755,root,root) %{_libdir}/libupnp.so
 %attr(755,root,root) %{_libdir}/libixml.so
-%attr(755,root,root) %{_libdir}/libthreadutil.so
+%attr(755,root,root) %{_libdir}/libthreadutil*.so
 
 %files devel
 %defattr(644,root,root,755)
 %doc upnp/doc/UPnP_Programming_Guide.pdf
-%{_libdir}/libupnp.so
 %{_includedir}/*

@@ -46,13 +46,16 @@ cd ../upnp
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_includedir}/upnp
 
 cd ixml
 %{__make} install \
 	PREFIX=$RPM_BUILD_ROOT
+install -m 644 inc/* $RPM_BUILD_ROOT%{_includedir}/upnp
 cd ../threadutil
 %{__make} install \
 	PREFIX=$RPM_BUILD_ROOT
+install -m 644 inc/* $RPM_BUILD_ROOT%{_includedir}/upnp
 cd ../upnp
 %{__make} install \
 	PREFIX=$RPM_BUILD_ROOT

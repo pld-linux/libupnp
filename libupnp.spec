@@ -5,6 +5,7 @@ Release:	1
 License:	BSD
 Group:		Development/Libraries
 Source0:	http://dl.sourceforge.net/upnp/%{name}-%{version}.tar.gz
+# Source0-md5:	e72b3550bf064eedf080f16f09688891
 URL:		http://upnp.sourceforge.net/
 Requires(pre,post):	/sbin/ldconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

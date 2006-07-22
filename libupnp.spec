@@ -1,13 +1,17 @@
 Summary:	The Universal Plug and Play (UPnP) SDK for Linux
 Summary(pl):	Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
 Name:		libupnp
-Version:	1.2.1a
+Version:	1.3.1
 Release:	1
 License:	BSD
-Group:		Development/Libraries
+Group:		Libraries
 Source0:	http://dl.sourceforge.net/upnp/%{name}-%{version}.tar.gz
-# Source0-md5:	e72b3550bf064eedf080f16f09688891
+# Source0-md5:	6646be5e31e58188e8f47c6ce64faa4c
+Patch0:		%{name}-opt.patch
 URL:		http://upnp.sourceforge.net/
+BuildRequires:	autoconf >= 2.59
+BuildRequires:	automake >= 1:1.9
+BuildRequires:	libtool >= 2:1.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -36,29 +40,37 @@ This package contains header files for the Linux SDK for UPnP Devices
 Ten pakiet zawiera pliki nag³ówkowe dla linuksowego pakietu
 programistycznego do urz±dzeñ UPnP (libupnp).
 
+%package static
+Summary:	Static upnp libraries
+Summary(pl):	Statyczne biblioteki upnp
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static upnp libraries.
+
+%description static -l pl
+Statyczne biblioteki upnp.
+
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-%{__make} -C ixml \
-	CC="%{__cc}" \
-	%{?!debug:DEBUG=0 DEBUG_FLAGS="%{rpmcflags} -DNDEBUG"} \
-	%{?debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DDEBUG"}
-%{__make} -C threadutil \
-	CC="%{__cc}" \
-	%{?!debug:DEBUG=0 DEBUG_FLAGS="%{rpmcflags} -DNDEBUG"} \
-	%{?debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DDEBUG"}
-%{__make} -C upnp\
-	CC="%{__cc}" \
-	%{?!debug:DEBUG=0 DEBUG_FLAGS="%{rpmcflags} -DNDEBUG"} \
-	%{?debug:DEBUG=1 DEBUG_FLAGS="%{rpmcflags} -DDEBUG"}
+%{__libtoolize}
+%{__aclocal} -I m4
+%{__autoconf}
+%{__autoheader}
+%{__automake}
+%configure \
+	%{?debug:--enable-debug}
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}/upnp}
 
-cp upnp/inc/* $RPM_BUILD_ROOT%{_includedir}/upnp
-cp upnp/bin%{?debug:/debug}/* $RPM_BUILD_ROOT%{_libdir}
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -68,12 +80,25 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README
-%attr(755,root,root) %{_libdir}/libupnp.so
-%attr(755,root,root) %{_libdir}/libixml.so
-%attr(755,root,root) %{_libdir}/libthreadutil*.so
+%doc ChangeLog LICENSE NEWS README TODO
+%attr(755,root,root) %{_libdir}/libixml.so.*.*.*
+%attr(755,root,root) %{_libdir}/libthreadutil.so.*.*.*
+%attr(755,root,root) %{_libdir}/libupnp.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %doc upnp/doc/UPnP_Programming_Guide.pdf
-%{_includedir}/*
+%attr(755,root,root) %{_libdir}/libixml.so
+%attr(755,root,root) %{_libdir}/libthreadutil.so
+%attr(755,root,root) %{_libdir}/libupnp.so
+%{_libdir}/libixml.la
+%{_libdir}/libthreadutil.la
+%{_libdir}/libupnp.la
+%{_includedir}/upnp
+%{_pkgconfigdir}/libupnp.pc
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libixml.a
+%{_libdir}/libthreadutil.a
+%{_libdir}/libupnp.a

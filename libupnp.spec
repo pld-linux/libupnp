@@ -1,5 +1,5 @@
 Summary:	The Universal Plug and Play (UPnP) SDK for Linux
-Summary(pl):	Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
+Summary(pl.UTF-8):   Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
 Name:		libupnp
 Version:	1.3.1
 Release:	1
@@ -20,15 +20,15 @@ API and open source code for building control points, devices, and
 bridges that are compliant with Version 1.0 of the Universal Plug and
 Play Device Architecture Specification.
 
-%description -l pl
-Linuksowy pakiet programistyczny dla urz±dzeñ UPnP (libupnp) dostarcza
-programistom API i kod z otwartymi ¼ród³ami s³u¿±ce do tworzenia
-punktów kontrolnych, urz±dzeñ i mostków kompatybilnych z wersj± 1.0
-specyfikacji architektury urz±dzeñ Universal Plug and Play.
+%description -l pl.UTF-8
+Linuksowy pakiet programistyczny dla urzÄ…dzeÅ„ UPnP (libupnp) dostarcza
+programistom API i kod z otwartymi ÅºrÃ³dÅ‚ami sÅ‚uÅ¼Ä…ce do tworzenia
+punktÃ³w kontrolnych, urzÄ…dzeÅ„ i mostkÃ³w kompatybilnych z wersjÄ… 1.0
+specyfikacji architektury urzÄ…dzeÅ„ Universal Plug and Play.
 
 %package devel
 Summary:	Header files for libupnp
-Summary(pl):	Pliki nag³ówkowe libupnp
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe libupnp
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -36,20 +36,20 @@ Requires:	%{name} = %{version}-%{release}
 This package contains header files for the Linux SDK for UPnP Devices
 (libupnp).
 
-%description devel -l pl
-Ten pakiet zawiera pliki nag³ówkowe dla linuksowego pakietu
-programistycznego do urz±dzeñ UPnP (libupnp).
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagÅ‚Ã³wkowe dla linuksowego pakietu
+programistycznego do urzÄ…dzeÅ„ UPnP (libupnp).
 
 %package static
 Summary:	Static upnp libraries
-Summary(pl):	Statyczne biblioteki upnp
+Summary(pl.UTF-8):   Statyczne biblioteki upnp
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static upnp libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczne biblioteki upnp.
 
 %prep

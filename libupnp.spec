@@ -1,5 +1,5 @@
 Summary:	The Universal Plug and Play (UPnP) SDK for Linux
-Summary(pl.UTF-8):   Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
+Summary(pl.UTF-8):	Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
 Name:		libupnp
 Version:	1.3.1
 Release:	1
@@ -28,7 +28,7 @@ specyfikacji architektury urządzeń Universal Plug and Play.
 
 %package devel
 Summary:	Header files for libupnp
-Summary(pl.UTF-8):   Pliki nagłówkowe libupnp
+Summary(pl.UTF-8):	Pliki nagłówkowe libupnp
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -42,7 +42,7 @@ programistycznego do urządzeń UPnP (libupnp).
 
 %package static
 Summary:	Static upnp libraries
-Summary(pl.UTF-8):   Statyczne biblioteki upnp
+Summary(pl.UTF-8):	Statyczne biblioteki upnp
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 

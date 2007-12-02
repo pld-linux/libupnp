@@ -1,14 +1,14 @@
 Summary:	The Universal Plug and Play (UPnP) SDK for Linux
 Summary(pl.UTF-8):	Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
 Name:		libupnp
-Version:	1.3.1
+Version:	1.6.1
 Release:	1
 License:	BSD
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/upnp/%{name}-%{version}.tar.gz
-# Source0-md5:	6646be5e31e58188e8f47c6ce64faa4c
-Patch0:		%{name}-opt.patch
+Source0:	http://dl.sourceforge.net/pupnp/%{name}-%{version}.tar.bz2
+# Source0-md5:	eb7adc11f9d487b47f348be2895faa82
 URL:		http://upnp.sourceforge.net/
+Patch0:	%{name}-m4.patch
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	libtool >= 2:1.5
@@ -87,7 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc upnp/doc/UPnP_Programming_Guide.pdf
+%doc docs/dist/*.pdf
 %attr(755,root,root) %{_libdir}/libixml.so
 %attr(755,root,root) %{_libdir}/libthreadutil.so
 %attr(755,root,root) %{_libdir}/libupnp.so

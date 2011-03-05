@@ -1,13 +1,12 @@
 Summary:	The Universal Plug and Play (UPnP) SDK for Linux
 Summary(pl.UTF-8):	Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
 Name:		libupnp
-Version:	1.6.10
+Version:	1.6.12
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/pupnp/%{name}-%{version}.tar.bz2
-# Source0-md5:	fb2bfbe4749423dc833053dc58ffef91
-Patch0:		%{name}-opt.patch
+# Source0-md5:	d48938efe69d07142be8aaaeaa9a2d3e
 URL:		http://pupnp.sourceforge.net/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.8
@@ -54,7 +53,6 @@ Statyczne biblioteki upnp.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -84,9 +82,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libixml.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libixml.so.2
 %attr(755,root,root) %{_libdir}/libthreadutil.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libthreadutil.so.3
+%attr(755,root,root) %ghost %{_libdir}/libthreadutil.so.6
 %attr(755,root,root) %{_libdir}/libupnp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libupnp.so.5
+%attr(755,root,root) %ghost %{_libdir}/libupnp.so.6
 
 %files devel
 %defattr(644,root,root,755)

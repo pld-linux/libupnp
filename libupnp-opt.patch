@@ -1,0 +1,22 @@
+--- libupnp-1.6.12/configure.ac.orig	2011-02-09 00:55:44.000000000 +0100
++++ libupnp-1.6.12/configure.ac	2011-03-07 19:20:34.403417132 +0100
+@@ -408,19 +408,6 @@
+ 	echo "Using FreeBSD specific compiler settings"
+ 	# Put FreeBSD specific compiler flags here
+ 	;;
+-*)
+-	echo "Using non-specific system compiler settings"
+-	if test x"$enable_debug" = xyes; then
+-		# AC_PROG_CC already sets CFLAGS to "-g -O2" by default,
+-		# but only if CFLAGS was not previously set.
+-		#:
+-		# Use -O0 in debug so that variables do not get optimized out
+-		AX_CFLAGS_GCC_OPTION([-O0, -g])
+-	else
+-		# add optimise for size
+-		AX_CFLAGS_GCC_OPTION([-Os])
+-	fi
+-	;;
+ esac
+ 
+ AX_CFLAGS_WARN_ALL

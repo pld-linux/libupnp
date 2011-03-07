@@ -7,6 +7,7 @@ License:	BSD
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/pupnp/%{name}-%{version}.tar.bz2
 # Source0-md5:	d48938efe69d07142be8aaaeaa9a2d3e
+Patch0:		%{name}-opt.patch
 URL:		http://pupnp.sourceforge.net/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.8
@@ -53,6 +54,7 @@ Statyczne biblioteki upnp.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}

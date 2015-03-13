@@ -1,0 +1,11 @@
+--- libupnp-1.6.19/upnp/src/api/UpnpString.c~	2012-03-26 18:49:42.000000000 +0200
++++ libupnp-1.6.19/upnp/src/api/UpnpString.c	2015-03-13 19:37:42.271188730 +0100
+@@ -44,7 +44,7 @@
+ 
+ /* strndup() is a GNU extension. */
+ #if HAVE_STRNDUP && !defined(WIN32)
+-	extern char *strndup(__const char *__string, size_t __n);
++//	extern char *strndup(__const char *__string, size_t __n);
+ #else /* HAVE_STRNDUP && !defined(WIN32) */
+ 	static char *strndup(const char *__string, size_t __n)
+ 	{

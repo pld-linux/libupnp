@@ -1,12 +1,12 @@
 Summary:	The Universal Plug and Play (UPnP) SDK for Linux
 Summary(pl.UTF-8):	Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
 Name:		libupnp
-Version:	1.6.21
+Version:	1.6.25
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/pupnp/%{name}-%{version}.tar.bz2
-# Source0-md5:	513adadb07fa039a8aeb0ceb7b7b0f6e
+# Source0-md5:	4d2c1e1efe0a19edeef233e14a93f04c
 Patch0:		%{name}-opt.patch
 URL:		http://pupnp.sourceforge.net/
 BuildRequires:	autoconf >= 2.60
@@ -52,6 +52,20 @@ Static upnp libraries.
 %description static -l pl.UTF-8
 Statyczne biblioteki upnp.
 
+%package apidocs
+Summary:	API documentation for upnp libraries
+Summary(pl.UTF-8):	Dokumentacja API bibliotek upnp
+Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
+
+%description apidocs
+API documentation for upnp libraries.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API bibliotek upnp.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -80,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog LICENSE NEWS README THANKS TODO
+%doc ChangeLog LICENSE NEWS README.md THANKS TODO
 %attr(755,root,root) %{_libdir}/libixml.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libixml.so.2
 %attr(755,root,root) %{_libdir}/libthreadutil.so.*.*.*
@@ -90,7 +104,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc docs/dist/*.pdf
 %attr(755,root,root) %{_libdir}/libixml.so
 %attr(755,root,root) %{_libdir}/libthreadutil.so
 %attr(755,root,root) %{_libdir}/libupnp.so
@@ -105,3 +118,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libixml.a
 %{_libdir}/libthreadutil.a
 %{_libdir}/libupnp.a
+
+%files apidocs
+%defattr(644,root,root,755)
+%doc docs/dist/html/{ixml,upnp}

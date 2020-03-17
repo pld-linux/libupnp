@@ -2,17 +2,20 @@
 Summary:	The Universal Plug and Play (UPnP) SDK for Linux
 Summary(pl.UTF-8):	Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
 Name:		libupnp
-Version:	1.10.1
+Version:	1.12.0
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/pupnp/%{name}-%{version}.tar.bz2
-# Source0-md5:	6060b9b7233996d174bf12f804f34d5f
+# Source0-md5:	9c4f2d5d412c802a54c861ec3395a57d
 Patch0:		%{name}-opt.patch
+Patch1:		%{name}-openssl.patch
 URL:		http://pupnp.sourceforge.net/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.8
 BuildRequires:	libtool >= 2:1.5
+BuildRequires:	openssl-devel
+BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -32,6 +35,7 @@ Summary:	Header files for libupnp
 Summary(pl.UTF-8):	Pliki nagłówkowe libupnp
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	openssl-devel
 
 %description devel
 This package contains header files for the Linux SDK for UPnP Devices
@@ -70,6 +74,7 @@ Dokumentacja API bibliotek upnp.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 # LFS is required in library clients (including examples)
 %{__sed} -i -e '/^Cflags/ s/$/ -D_FILE_OFFSET_BITS=64/' libupnp.pc.in
@@ -82,7 +87,9 @@ Dokumentacja API bibliotek upnp.
 %{__autoheader}
 %{__automake}
 %configure \
-	%{?debug:--enable-debug}
+	%{?debug:--enable-debug} \
+	--enable-open-ssl \
+	--disable-silent-rules
 %{__make}
 
 %install
@@ -103,7 +110,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libixml.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libixml.so.11
 %attr(755,root,root) %{_libdir}/libupnp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libupnp.so.15
+%attr(755,root,root) %ghost %{_libdir}/libupnp.so.16
 
 %files devel
 %defattr(644,root,root,755)

@@ -1,16 +1,17 @@
 Summary:	The Universal Plug and Play (UPnP) SDK for Linux
 Summary(pl.UTF-8):	Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
 Name:		libupnp
-Version:	1.6.25
+Version:	1.14.0
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/pupnp/%{name}-%{version}.tar.bz2
-# Source0-md5:	4d2c1e1efe0a19edeef233e14a93f04c
+# Source0-md5:	be649223f0cf781aff2316e20eaac225
 Patch0:		%{name}-opt.patch
 URL:		http://pupnp.sourceforge.net/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.8
+BuildRequires:	doxygen
 BuildRequires:	libtool >= 2:1.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -77,8 +78,10 @@ Dokumentacja API bibliotek upnp.
 %{__autoheader}
 %{__automake}
 %configure \
+	--disable-silent-rules \
 	%{?debug:--enable-debug}
 %{__make}
+%{__make} -C docs docs
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -94,21 +97,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog LICENSE NEWS README.md THANKS TODO
+%doc COPYING ChangeLog THANKS
 %attr(755,root,root) %{_libdir}/libixml.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libixml.so.2
-%attr(755,root,root) %{_libdir}/libthreadutil.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libthreadutil.so.6
+%attr(755,root,root) %ghost %{_libdir}/libixml.so.11
 %attr(755,root,root) %{_libdir}/libupnp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libupnp.so.6
+%attr(755,root,root) %ghost %{_libdir}/libupnp.so.17
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libixml.so
-%attr(755,root,root) %{_libdir}/libthreadutil.so
 %attr(755,root,root) %{_libdir}/libupnp.so
 %{_libdir}/libixml.la
-%{_libdir}/libthreadutil.la
 %{_libdir}/libupnp.la
 %{_includedir}/upnp
 %{_pkgconfigdir}/libupnp.pc
@@ -116,9 +115,8 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libixml.a
-%{_libdir}/libthreadutil.a
 %{_libdir}/libupnp.a
 
 %files apidocs
 %defattr(644,root,root,755)
-%doc docs/dist/html/{ixml,upnp}
+%doc docs/doxygen/html/

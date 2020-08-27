@@ -32,6 +32,7 @@ Summary:	Header files for libupnp
 Summary(pl.UTF-8):	Pliki nagłówkowe libupnp
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Conflicts:	libupnp1.6-devel
 
 %description devel
 This package contains header files for the Linux SDK for UPnP Devices
@@ -46,6 +47,7 @@ Summary:	Static upnp libraries
 Summary(pl.UTF-8):	Statyczne biblioteki upnp
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
+Conflicts:	libupnp1.6-static
 
 %description static
 Static upnp libraries.

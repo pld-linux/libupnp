@@ -1,0 +1,12 @@
+--- libupnp-1.12.0/upnp/src/api/upnpapi.c.orig	2020-01-22 21:25:01.000000000 +0100
++++ libupnp-1.12.0/upnp/src/api/upnpapi.c	2020-03-17 17:31:32.941450155 +0100
+@@ -591,7 +591,9 @@
+ 	if (initOpenSslLib) {
+ 		SSL_load_error_strings();
+ 		SSL_library_init();
++#if OPENSSL_VERSION_NUMBER < 0x10100000L
+ 		OpenSSL_add_all_algorithms();
++#endif
+ 	}
+ 	gSslCtx = SSL_CTX_new(sslMethod);
+ 	if (!gSslCtx) {

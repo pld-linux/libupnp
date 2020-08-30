@@ -8,11 +8,14 @@ Group:		Libraries
 Source0:	http://downloads.sourceforge.net/pupnp/%{name}-%{version}.tar.bz2
 # Source0-md5:	be649223f0cf781aff2316e20eaac225
 Patch0:		%{name}-opt.patch
+Patch1:		%{name}-openssl.patch
 URL:		http://pupnp.sourceforge.net/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.8
 BuildRequires:	doxygen
 BuildRequires:	libtool >= 2:1.5
+BuildRequires:	openssl-devel
+BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -32,6 +35,7 @@ Summary:	Header files for libupnp
 Summary(pl.UTF-8):	Pliki nagłówkowe libupnp
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	openssl-devel
 Conflicts:	libupnp1.6-devel
 
 %description devel
@@ -72,6 +76,11 @@ Dokumentacja API bibliotek upnp.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+
+# LFS is required in library clients (including examples)
+%{__sed} -i -e '/^Cflags/ s/$/ -D_FILE_OFFSET_BITS=64/' libupnp.pc.in
+%{__sed} -i -e '/^AM_CPPFLAGS =/ s/= /= -D_FILE_OFFSET_BITS=64 /' upnp/sample/Makefile.am
 
 %build
 %{__libtoolize}
@@ -80,8 +89,9 @@ Dokumentacja API bibliotek upnp.
 %{__autoheader}
 %{__automake}
 %configure \
-	--disable-silent-rules \
-	%{?debug:--enable-debug}
+	%{?debug:--enable-debug} \
+	--enable-open-ssl \
+	--disable-silent-rules
 %{__make}
 %{__make} -C docs docs
 

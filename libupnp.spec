@@ -14,7 +14,7 @@ BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.8
 BuildRequires:	doxygen
 BuildRequires:	libtool >= 2:1.5
-BuildRequires:	openssl-devel
+BuildRequires:	openssl-devel >= 0.9.8b
 BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -35,7 +35,7 @@ Summary:	Header files for libupnp
 Summary(pl.UTF-8):	Pliki nagłówkowe libupnp
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	openssl-devel
+Requires:	openssl-devel >= 0.9.8b
 Conflicts:	libupnp1.6-devel
 
 %description devel
@@ -131,4 +131,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files apidocs
 %defattr(644,root,root,755)
-%doc docs/doxygen/html/
+%doc docs/doxygen/html/*.{html,js,css,png}

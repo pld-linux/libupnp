@@ -16,6 +16,7 @@ BuildRequires:	doxygen
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	openssl-devel >= 0.9.8b
 BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -63,9 +64,7 @@ Statyczne biblioteki upnp.
 Summary:	API documentation for upnp libraries
 Summary(pl.UTF-8):	Dokumentacja API bibliotek upnp
 Group:		Documentation
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description apidocs
 API documentation for upnp libraries.

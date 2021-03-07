@@ -64,7 +64,7 @@ Statyczne biblioteki upnp.
 Summary:	API documentation for upnp libraries
 Summary(pl.UTF-8):	Dokumentacja API bibliotek upnp
 Group:		Documentation
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description apidocs
 API documentation for upnp libraries.

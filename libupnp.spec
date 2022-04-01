@@ -1,15 +1,14 @@
 Summary:	The Universal Plug and Play (UPnP) SDK for Linux
 Summary(pl.UTF-8):	Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
 Name:		libupnp
-Version:	1.14.6
-Release:	2
+Version:	1.14.12
+Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	https://downloads.sourceforge.net/pupnp/%{name}-%{version}.tar.bz2
-# Source0-md5:	05c2393eee4fbf81c9e1b116b9554039
+# Source0-md5:	63a51264054f62947f930c2f89e49b28
 Patch0:		%{name}-opt.patch
 Patch1:		%{name}-openssl.patch
-Patch2:		ithread.patch
 URL:		http://pupnp.sourceforge.net/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.8
@@ -17,6 +16,7 @@ BuildRequires:	doxygen
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	openssl-devel >= 0.9.8b
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -77,7 +77,6 @@ Dokumentacja API bibliotek upnp.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 # LFS is required in library clients (including examples)
 %{__sed} -i -e '/^Cflags/ s/$/ -D_FILE_OFFSET_BITS=64/' libupnp.pc.in

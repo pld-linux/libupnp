@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_without	static_libs	# static libraries
+
 Summary:	The Universal Plug and Play (UPnP) SDK for Linux
 Summary(pl.UTF-8):	Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
 Name:		libupnp
@@ -91,7 +95,8 @@ Dokumentacja API bibliotek upnp.
 %configure \
 	%{?debug:--enable-debug} \
 	--enable-open-ssl \
-	--disable-silent-rules
+	--disable-silent-rules \
+	%{__enable_disable static_libs static}
 %{__make}
 %{__make} -C docs docs
 
@@ -124,10 +129,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/upnp
 %{_pkgconfigdir}/libupnp.pc
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libixml.a
 %{_libdir}/libupnp.a
+%endif
 
 %files apidocs
 %defattr(644,root,root,755)

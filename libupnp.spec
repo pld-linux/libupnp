@@ -1,5 +1,6 @@
 #
 # Conditional build:
+%bcond_without	apidocs		# API documentation
 %bcond_without	static_libs	# static libraries
 
 Summary:	The Universal Plug and Play (UPnP) SDK for Linux
@@ -16,7 +17,7 @@ Patch1:		%{name}-openssl.patch
 URL:		http://pupnp.sourceforge.net/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.8
-BuildRequires:	doxygen
+%{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	openssl-devel >= 0.9.8b
 BuildRequires:	pkgconfig
@@ -98,7 +99,7 @@ Dokumentacja API bibliotek upnp.
 	--disable-silent-rules \
 	%{__enable_disable static_libs static}
 %{__make}
-%{__make} -C docs docs
+%{?with_apidocs:%{__make} -C docs docs}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -136,6 +137,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libupnp.a
 %endif
 
+%if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
 %doc docs/doxygen/html/*.{html,js,css,png}
+%endif

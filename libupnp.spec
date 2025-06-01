@@ -80,8 +80,8 @@ Dokumentacja API bibliotek upnp.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 # LFS is required in library clients (including examples)
 %{__sed} -i -e '/^Cflags/ s/$/ -D_FILE_OFFSET_BITS=64/' libupnp.pc.in

@@ -13,7 +13,7 @@
 -		# Use -O0 in debug so that variables do not get optimized out
 -		AX_CFLAGS_GCC_OPTION([-O0, -g])
 -	else
--		# add optimise for size
+-		# add optimize for size
 -		AX_CFLAGS_GCC_OPTION([-Os])
 -	fi
 -	;;

@@ -6,19 +6,19 @@
 Summary:	The Universal Plug and Play (UPnP) SDK for Linux
 Summary(pl.UTF-8):	Pakiet programistyczny Universal Plug and Play (UPnP) dla Linuksa
 Name:		libupnp
-Version:	1.14.30
+Version:	1.14.31
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	https://downloads.sourceforge.net/pupnp/%{name}-%{version}.tar.bz2
-# Source0-md5:	8eaeb19beca729a2d7293fb7c4ff05af
+# Source0-md5:	7fa742b74f2a2d41502cc1dd87bd349b
 Patch0:		%{name}-opt.patch
 Patch1:		%{name}-openssl.patch
 URL:		http://pupnp.sourceforge.net/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.8
 %{?with_apidocs:BuildRequires:	doxygen}
-BuildRequires:	libtool >= 2:1.5
+BuildRequires:	libtool >= 2:2
 BuildRequires:	openssl-devel >= 0.9.8b
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
@@ -41,8 +41,8 @@ specyfikacji architektury urządzeń Universal Plug and Play.
 Summary:	Header files for libupnp
 Summary(pl.UTF-8):	Pliki nagłówkowe libupnp
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	openssl-devel >= 0.9.8b
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	openssl-devel%{?_isa} >= 0.9.8b
 Conflicts:	libupnp1.6-devel
 
 %description devel
@@ -57,7 +57,7 @@ programistycznego do urządzeń UPnP (libupnp).
 Summary:	Static upnp libraries
 Summary(pl.UTF-8):	Statyczne biblioteki upnp
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
 Conflicts:	libupnp1.6-static
 
 %description static
@@ -98,8 +98,12 @@ Dokumentacja API bibliotek upnp.
 	--enable-open-ssl \
 	--disable-silent-rules \
 	%{__enable_disable static_libs static}
+
 %{__make}
-%{?with_apidocs:%{__make} -C docs docs}
+
+%if %{with apidocs}
+%{__make} -C docs docs
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -116,15 +120,15 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc COPYING ChangeLog THANKS
-%attr(755,root,root) %{_libdir}/libixml.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libixml.so.11
-%attr(755,root,root) %{_libdir}/libupnp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libupnp.so.17
+%{_libdir}/libixml.so.*.*.*
+%ghost %{_libdir}/libixml.so.11
+%{_libdir}/libupnp.so.*.*.*
+%ghost %{_libdir}/libupnp.so.17
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libixml.so
-%attr(755,root,root) %{_libdir}/libupnp.so
+%{_libdir}/libixml.so
+%{_libdir}/libupnp.so
 %{_libdir}/libixml.la
 %{_libdir}/libupnp.la
 %{_includedir}/upnp
